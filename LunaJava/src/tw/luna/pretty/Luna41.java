@@ -5,17 +5,20 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class Luna33 {
+public class Luna41 {
 
 	public static void main(String[] args) {
-//		System.out.println(File.pathSeparator);
-//		System.out.println(File.separator);
-		try {
-			FileInputStream fin = new FileInputStream("./dir1/file1.txt");
 
-			int c;
-			while ((c = fin.read()) != -1) {
-				System.out.print((char)c);
+		try {
+			File source = new File("./dir1/file2.txt");
+			FileInputStream fin = new FileInputStream(source);
+
+			int len;
+			byte[] buf = new byte[(int)source.length()];
+
+			while ((len = fin.read(buf)) != -1) {
+
+				System.out.print(new String(buf));
 			}
 
 			fin.close();

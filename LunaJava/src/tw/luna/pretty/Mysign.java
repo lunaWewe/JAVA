@@ -10,6 +10,10 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.plaf.SliderUI;
 
 import tw.luna.apis.MyPanel;
 import tw.luna.apis.MyPanel2;
@@ -17,6 +21,8 @@ import tw.luna.apis.MyPanel2;
 public class Mysign extends JFrame {
 	private MyPanel2 myPanel;
 	private JButton clear, undo, redo, color;
+	private JSlider slider;
+
 
 	public Mysign() {
 		super("Sign App");
@@ -29,11 +35,18 @@ public class Mysign extends JFrame {
 		undo = new JButton("Undo");
 		redo = new JButton("Redo");
 		color = new JButton("Color");
+		
+		
 		JPanel top = new JPanel(new FlowLayout());
+		JSlider slider = new JSlider(1,20);
+		
 		top.add(clear);
 		top.add(undo);
 		top.add(redo);
 		top.add(color);
+		top.add(color);
+		top.add(slider);
+		
 		add(top, BorderLayout.NORTH);
 
 		setSize(640, 480);
@@ -76,6 +89,16 @@ public class Mysign extends JFrame {
 
 			}
 		});
+		slider.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
 	}
 
 	private void changeColor() {
