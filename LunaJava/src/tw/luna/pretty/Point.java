@@ -1,6 +1,8 @@
 package tw.luna.pretty;
 
-public class Point {
+import java.io.Serializable;
+
+public class Point implements Serializable{
 	private int x, y;
 
 	public Point(int x, int y) {
