@@ -18,6 +18,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.SliderUI;
 
+import tw.luna.apis.MyClock;
 import tw.luna.apis.MyPanel;
 import tw.luna.apis.MyPanel2;
 
@@ -25,6 +26,7 @@ public class Mysign extends JFrame {
 	private MyPanel2 myPanel;
 	private JButton clear, undo, redo, color, saveObj, loadObj, saveJPEG;
 	private JSlider slider;
+	private MyClock myClock;
 
 	public Mysign() {
 		super("Sign App");
@@ -40,6 +42,7 @@ public class Mysign extends JFrame {
 		saveObj = new JButton("saveObj");
 		loadObj = new JButton("loadObj");
 		saveJPEG = new JButton("saveJPEG");
+		myClock = new MyClock();
 
 		JPanel top = new JPanel(new FlowLayout());
 		slider = new JSlider(1, 20);
@@ -53,6 +56,7 @@ public class Mysign extends JFrame {
 		top.add(saveObj);
 		top.add(loadObj);
 		top.add(saveJPEG);
+		top.add(myClock);
 
 		add(top, BorderLayout.NORTH);
 
