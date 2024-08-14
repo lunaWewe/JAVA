@@ -5,6 +5,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.util.Properties;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,13 +41,48 @@ public class Luna61 {
 	static void parseJSON(String json) {
 		JSONArray root = new JSONArray(json);
 		System.out.println(root.length());
+		String url1 = "jdbc:mysql://127.0.0.1:3306/luna";
 
-		for (int i = 0; i < root.length(); i++) {
-			JSONObject element = root.getJSONObject(i);
-			String name = element.getString("Name");
-			String addr = element.getString("SalePlace");
-			String tel = element.getString("ContactTel");
-			System.out.printf("%s:%s:%s\n", name, addr, tel);
+		Properties prop = new Properties();
+		prop.put("user", "root");
+		prop.put("password", "root");
+
+		try {
+			Connection conn = DriverManager.getConnection(url1, prop);
+			String sql = "INSERT INTO gift (name,feature,addr,picurl,city,town,lat,lng)" + "VALUES (?,?,?,?,?,?,?,?)";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+
+			for (int i = 0; i < root.length(); i++) {
+				JSONObject element = root.getJSONObject(i);
+				String name = element.getString("Name");
+				String feature = element.getString("Feature");
+				String addr = element.getString("SalePlace");
+				String picurl = element.getString("Column1");
+				String city = element.getString("County");
+				String town = element.getString("Township");
+				String lat = element.getString("Latitude");
+				String lng = element.getString("Longitude");
+
+				pstmt.setString(1, name);
+				pstmt.setString(2, feature);
+				pstmt.setString(3, addr);
+				pstmt.setString(4, picurl);
+				pstmt.setString(5, city);
+				pstmt.setString(6, town);
+				pstmt.setString(7, lat);
+				pstmt.setString(8, lng);
+
+				try {
+					pstmt.setDouble(7, Double.parseDouble(lat));
+					pstmt.setDouble(8, Double.parseDouble(lng));
+				} catch (Exception e) {
+					pstmt.setDouble(7, 0);
+					pstmt.setDouble(8, 0);
+				}
+				pstmt.executeUpdate();
+			}
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 
 	}

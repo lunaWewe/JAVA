@@ -5,14 +5,15 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 import tw.luna.apis.GamePanel;
+import tw.luna.apis.GamePanelV2;
 
 public class MyGame extends JFrame {
-	private GamePanel panel;
+	private GamePanelV2 panel;
 
 	public MyGame() {
 
 		setLayout(new BorderLayout());
-		panel = new GamePanel();
+		panel = new GamePanelV2();
 		add(panel, BorderLayout.CENTER);
 
 		setSize(640, 480);
